@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using minimal_api.Dominio.DTOs;
-using minimal_api.Dominio.Entidades;
-using minimal_api.Dominio.Interfaces;
-using minimal_api.Infraestrutura.DB;
+using MinimalAPI.Dominio.DTOs;
+using MinimalAPI.Dominio.Entidades;
+using MinimalAPI.Dominio.Interfaces;
+using MinimalAPI.Infraestrutura.DB;
 
-namespace minimal_api.Dominio.Servicos
+namespace MinimalAPI.Dominio.Servicos
 {
     public class VeiculoServico : IVeiculoServico
     {
@@ -39,7 +39,7 @@ namespace minimal_api.Dominio.Servicos
 
         }
 
-        public List<Veiculo> Todos(int pagina = 1, string? nome = null, string? marca = null)
+        public List<Veiculo> Todos(int? pagina = 1, string? nome = null, string? marca = null)
         {
             var query = _contexto.Veiculos.AsQueryable();
             if (!string.IsNullOrEmpty(nome))
@@ -49,7 +49,11 @@ namespace minimal_api.Dominio.Servicos
 
             int ItensPorPagina = 10;
 
-            query = query.Skip((pagina - 1) * ItensPorPagina).Take(ItensPorPagina);
+            if (pagina != null)
+            {
+                query = query.Skip(((int)pagina - 1) * ItensPorPagina).Take(ItensPorPagina);
+            }
+
 
             return query.ToList();
 

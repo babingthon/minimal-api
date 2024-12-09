@@ -1,9 +1,9 @@
 using System.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using minimal_api.Dominio.Entidades;
+using MinimalAPI.Dominio.Entidades;
 
-namespace minimal_api.Infraestrutura.DB
+namespace MinimalAPI.Infraestrutura.DB
 {
     public class DbContexto : DbContext
     {
